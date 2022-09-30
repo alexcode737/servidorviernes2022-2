@@ -1,12 +1,16 @@
 import express from 'express'
 
 import { ControladorHabitacion } from '../Controllers/ControladorHabitacion.js'
+import { ControladorReservas } from '../Controllers/ControladorReservas.js'
 let controladorHabitacion=new ControladorHabitacion() //usando el controlador
+let controladorReservas = new ControladorReservas()
 
 export let rutasPersonalizadas=express.Router()
 
 rutasPersonalizadas.get('/hotelesnick/habitaciones',controladorHabitacion.buscarHabitaciones)
-rutasPersonalizadas.get('/hotelesnick/habitacion/:id',controladorHabitacion.buscarHabitacionPorId)
+rutasPersonalizadas.get('/hotelesnick/habitacion/:idhabitacion',controladorHabitacion.buscarHabitacionPorId)
 rutasPersonalizadas.post('/hotelesnick/habitacion',controladorHabitacion.registrarHabitacion)
-rutasPersonalizadas.put('/hotelesnick/habitacion',controladorHabitacion.editarHabitacion)
+rutasPersonalizadas.put('/hotelesnick/habitacion/:idhabitacion',controladorHabitacion.editarHabitacion)
+rutasPersonalizadas.delete('/hotelesnick/habitacion/:idhabitacion',controladorHabitacion.eliminarHabitacion)
+rutasPersonalizadas.get('/hotelesnick/reservas',controladorReservas.buscarReservas)
 
