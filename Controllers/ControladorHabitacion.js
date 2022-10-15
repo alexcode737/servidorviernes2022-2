@@ -1,13 +1,17 @@
+import { ServicioHAbitacion } from "../services/ServicioHabitacion.js"
+
 export class ControladorHabitacion{
 
     constructor(){}
 
-    buscarHabitaciones(request,response){
+
+    async buscarHabitaciones(request,response){
+        let objetoServicioHabitacion = new ServicioHAbitacion
         try{
             response.status(200).json({
 
                 "mensaje":"Exito en la consulta", 
-                "datos":"AQUI VAN LOS DATOS DE HABITACIONES",
+                "datos":await objetoServicioHabitacion.buscarHabitaciones(),
             })
         }catch(error){
 
@@ -16,22 +20,20 @@ export class ControladorHabitacion{
                 "datos":null,
             })
         }
-
-        
-        
-
         // response.send("estoy buscando habitaciones desde el controlador")
 
     }
 
-    buscarHabitacionPorId(request,response){
+    async buscarHabitacionPorId(request,response){
         let id=request.params.idhabitacion// recibo el id de la peticion 
+        let objetoServicioHabitacion= new ServicioHAbitacion()
+
         console.log('el id es: '+id)
         try{
             response.status(200).json({
 
-                "mensaje":"Exito en la consulta "+datosenviadosenurl, 
-                "datos":"AQUI VAN LOS DATOS DE HABITACIONES POR ID ",
+                "mensaje":"Exito en la consulta "+id, 
+                "datos":await objetoServicioHabitacion.buscarHabitacionPorId(id),
             })
         }catch(error){
 
@@ -44,15 +46,28 @@ export class ControladorHabitacion{
         //response.send("estoy buscando una habitacion por id desde el controlador")
     }
 
-    registrarHabitacion(request,response){
-        let datosHabitacion=request.body
-        console.log(datosHabitacion)
+    async registrarHabitacion(request,response){
+        let datosHabitacion=request.body//obtengo datos por el body
+        let objetoServicioHabitacion= new ServicioHAbitacion()
+        
         try{
-            response.status(200).json({
+            console.log(datosHabitacion.numeroMaximoPersonas)
+            if(datosHabitacion.numeroMaximoPersonas<=8){
+                await objetoServicioHabitacion.agregarHabitacionEnBD(datosHabitacion)
+                response.status(200).json({
 
-                "mensaje":"Exito en la consulta", 
-                "datos":"AQUI VAN LOS DATOS DE REGISTRO DE HABITACIONES",
-            })
+                    "mensaje":"Exito en la consulta", 
+                    "datos":null
+                })
+
+            }else{
+                response.status(400).json({
+                    "mensaje":"no caben tantas babys", 
+                    "datos":null
+                })
+            }
+            
+            
         }catch(error){
 
             response.status(400).json({
@@ -63,11 +78,13 @@ export class ControladorHabitacion{
        // response.send("estoy agregando desde el controlador")
     }
 
-    editarHabitacion(request,response){
+    async editarHabitacion(request,response){
         let id=request.params.idhabitacion
         let datosEditar = request.body
+        let objetoServicioHabitacion= new ServicioHAbitacion()
         console.log(id,datosEditar)
         try{
+            await objetoServicioHabitacion.editarHabitacion(id,datosEditar)
             response.status(200).json({
 
                 "mensaje":"Exito Editando a: "+id, 
@@ -83,9 +100,11 @@ export class ControladorHabitacion{
        // response.send("estoy editando desde el controlador")
     }
 
-    eliminarHabitacion(request,response){
+    async eliminarHabitacion(request,response){
         let id = request.params.idhabitacion
+        let objetoServicioHabitacion= new ServicioHAbitacion()
         try{
+            await objetoServicioHabitacion.eliminarHabitacion(id)
             response.status(200).json({
                 "mensaje":"Exito al eliminar",
                 "datos":null

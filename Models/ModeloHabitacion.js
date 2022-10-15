@@ -2,7 +2,7 @@ import mongose from 'mongoose';
 
 //ESQUEMA DE DATOS ES UN ESTANDAR DONDE APARECEN SOLO LOS DATOS
 //CON LOS QUE EL API VA A TRABAJAR
-const Schema = mongoose.Schema;
+const Schema = mongose.Schema;
 //const ObjectId = Schema.ObjectId;
 
 const EsquemaHabitacion = new Schema({
@@ -30,4 +30,4 @@ const EsquemaHabitacion = new Schema({
 
 });
 
-export const modeloHAbitacion = mogoose.model('Habitaciones',EsquemaHabitacion)
+export const modeloHAbitacion = mongose.model('Habitaciones',EsquemaHabitacion)

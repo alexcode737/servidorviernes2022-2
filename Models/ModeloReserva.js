@@ -6,7 +6,7 @@
 //costoreserva (valorNoche*di)
 import mongose from 'mongoose'
 
-const Schema = mongoose.Schema;
+const Schema = mongose.Schema;
 
 const EsquemaReserva = new Schema({
 
