@@ -28,12 +28,20 @@ export class ControladorReservas{
         let id=request.params.idReserva// recibo el id de la peticion 
         console.log('el id es: '+id)
         try{
-            
-            response.status(200).json({
+            let c = await objservicioreserva.buscarRecervaPorId(id),
+            if(c != null){
+                response.status(200).json({
 
-                "mensaje":"Exito en la consulta "+datosenviadosenurl, 
-                "datos":await objservicioreserva.buscarRecervaPorId(id),
-            })
+                    "mensaje":"Exito en la consulta "+ id, 
+                    "datos":c,
+                })
+            }else{
+                response.status(401).json({
+
+                    "mensaje":"Error :"+ id + " no existe la reserva ", 
+                    "datos":
+                })
+            }
         }catch(error){
 
             response.status(400).json({
@@ -170,6 +178,7 @@ export class ControladorReservas{
         
        // response.send("estoy editando desde el controlador")
     }
+}
     async eliminarReserva(request,response){
         let objserviciorecerva = new ServicioReserva
         let id = request.params.idReserva
