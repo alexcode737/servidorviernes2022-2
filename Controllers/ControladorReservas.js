@@ -28,7 +28,7 @@ export class ControladorReservas{
         let id=request.params.idReserva// recibo el id de la peticion 
         console.log('el id es: '+id)
         try{
-            let c = await objservicioreserva.buscarRecervaPorId(id),
+            let c = await objservicioreserva.buscarRecervaPorId(id)
             if(c != null){
                 response.status(200).json({
 
@@ -39,7 +39,7 @@ export class ControladorReservas{
                 response.status(401).json({
 
                     "mensaje":"Error :"+ id + " no existe la reserva ", 
-                    "datos":
+                    "datos":null
                 })
             }
         }catch(error){
