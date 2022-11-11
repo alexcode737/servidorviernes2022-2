@@ -51,12 +51,13 @@ export class ControladorHabitacion{
         let objetoServicioHabitacion= new ServicioHAbitacion()
         
         try{
-            console.log(datosHabitacion.numeroMaximoPersonas)
+            console.log(datosHabitacion)
             if(datosHabitacion.numeroMaximoPersonas<=8){
                 await objetoServicioHabitacion.agregarHabitacionEnBD(datosHabitacion)
+
                 response.status(200).json({
 
-                    "mensaje":"Exito en la consulta", 
+                    "mensaje":"Exito en el registro de la habitacion", 
                     "datos":null
                 })
 

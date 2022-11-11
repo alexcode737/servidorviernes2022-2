@@ -5,6 +5,5 @@ export async function conectarConMongo(){
         console.log('Exito en la conexion con mongo')
     }catch(err){
         console.log(err)
-    }
-    
+    }  
 }

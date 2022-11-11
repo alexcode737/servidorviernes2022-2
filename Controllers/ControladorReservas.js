@@ -65,7 +65,8 @@ export class ControladorReservas{
          console.log(r)
        // let objetoServicioHabitacion = new ServicioHAbitacion()
         if(r.estado==true){
-                objserviciorecerva.guardarReserva(r)
+            // Se guarda la informacion de la reserva
+            objserviciorecerva.guardarReserva(r.info)
             response.status(200).json({
                 "mensaje": "Exito",
                 "datos" : r.info
